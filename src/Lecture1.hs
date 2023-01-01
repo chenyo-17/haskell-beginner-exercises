@@ -107,10 +107,13 @@ minmax x y z =
 -- first character) and negative end position should result in an empty
 -- string.
 subString :: Int -> Int -> String -> String
+-- TODO: how to drop the end
 subString start end str
   | end < 0 = ""
   | start < 0 = subString 0 end str
-  | otherwise = reverse (drop start (reverse (take (end + 1) str)))
+  | otherwise = reverse (take (length sub_str - start) sub_str)
+  where
+    sub_str = reverse (take (end + 1) str)
 
 -- subString start end str = error "TODO"
 
@@ -145,7 +148,7 @@ strSum str = lstSum (words str)
 -- 🕯 HINT: Use recursion to implement this function.
 lowerAndGreater :: Int -> [Int] -> String
 -- TODO: how to break long line?
-lowerAndGreater n list = "The given number " ++ show n ++ " is greater than " ++ show (countLower n list) ++ " elements and lower than " ++ show (countGreater n list) ++ " elements"
+lowerAndGreater n list = show n ++ " is greater than " ++ show (countGreater n list) ++ " elements and lower than " ++ show (countLower n list) ++ " elements"
   where
     countLower :: Int -> [Int] -> Int
     countLower n list
